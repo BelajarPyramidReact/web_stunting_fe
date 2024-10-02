@@ -10,15 +10,15 @@ const Footer = () => {
 
                         <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
                             <li>
-                                <a href="#" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
+                                <a href="/" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
                             </li>
 
                             <li>
-                                <a href="#" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </a>
+                                <a href="/" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </a>
                             </li>
 
                             <li>
-                                <a href="#" className="text-gray-500 transition hover:opacity-75"> Cookies </a>
+                                <a href="/" className="text-gray-500 transition hover:opacity-75"> Cookies </a>
                             </li>
                         </ul>
                     </div>
@@ -27,7 +27,7 @@ const Footer = () => {
                         <ul className="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
                             <li>
                                 <a
-                                    href="#"
+                                    href="/"
                                     rel="noreferrer"
                                     target="_blank"
                                     className="text-gray-700 transition hover:opacity-75"
@@ -46,7 +46,7 @@ const Footer = () => {
 
                             <li>
                                 <a
-                                    href="#"
+                                    href="/"
                                     rel="noreferrer"
                                     target="_blank"
                                     className="text-gray-700 transition hover:opacity-75"
@@ -65,7 +65,7 @@ const Footer = () => {
 
                             <li>
                                 <a
-                                    href="#"
+                                    href="/"
                                     rel="noreferrer"
                                     target="_blank"
                                     className="text-gray-700 transition hover:opacity-75"
@@ -82,7 +82,7 @@ const Footer = () => {
 
                             <li>
                                 <a
-                                    href="#"
+                                    href="/"
                                     rel="noreferrer"
                                     target="_blank"
                                     className="text-gray-700 transition hover:opacity-75"

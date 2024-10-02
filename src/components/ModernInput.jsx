@@ -64,9 +64,33 @@ const ModernInput = ({
                 </option>
               ))}
             </select>
-            {/* Ikon dropdown arrow */}
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <IconsFa.FaChevronDown className="h-4 w-4 text-gray-400" />
+            </div>
+          </div>
+        );
+      case 'date':
+        return (
+          <div className="relative">
+            <input
+              type="text"
+              id={name}
+              name={name}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              required={required}
+              className={`${inputClass} appearance-none`}
+              onFocus={(e) => (e.target.type = 'date')} 
+              onBlur={(e) => (e.target.type = 'text')}
+              pattern="\d{2}/\d{2}/\d{4}" 
+            />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              {IconComponent ? (
+                <IconComponent className="h-5 w-5 text-teal-500" />
+              ) : (
+                <IconsFa.FaCalendarAlt className="h-5 w-5 text-teal-500" />
+              )}
             </div>
           </div>
         );
@@ -85,6 +109,30 @@ const ModernInput = ({
                   className="form-radio text-teal-500"
                 />
                 <span className="ml-2">{option.label}</span>
+              </label>
+            ))}
+          </div>
+        );
+      case 'checkbox':
+        return (
+          <div className="flex flex-col space-y-3">
+            {options.map((option) => (
+              <label
+                key={option.value}
+                className="flex items-center space-x-4 cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  name={name}
+                  value={option.value}
+                  checked={value.includes(option.value)}
+                  onChange={onChange}
+                  className="form-checkbox text-teal-500 border-teal-300 focus:ring-teal-500 h-5 w-5"
+                  style={{
+                    accentColor: 'teal',
+                  }}
+                />
+                <span className="text-sm text-gray-900">{option.label}</span>
               </label>
             ))}
           </div>
