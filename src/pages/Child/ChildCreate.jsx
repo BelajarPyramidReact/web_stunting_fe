@@ -86,6 +86,7 @@ const ChildCreate = () => {
           error.response?.data?.message ||
           'Terjadi kesalahan saat mengedit data. Silakan coba lagi.'
         );
+        setShowErrorModal(true);
       }
     }
   };

@@ -99,6 +99,7 @@ const ChildEdit = () => {
                     error.response?.data?.message ||
                     'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
                 );
+                setShowErrorModal(true);
             }
         }
     };
