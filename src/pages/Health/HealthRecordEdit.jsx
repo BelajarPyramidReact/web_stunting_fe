@@ -164,14 +164,13 @@ const HealthRecordEdit = () => {
             </span>
           </div>
         )}
-        <NotificationModal
-          isOpen={showErrorModal}
-          onClose={() => setShowErrorModal(false)}
-          title="Error"
-          message={errorMessage}
-        />
       </main>
-
+      <NotificationModal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        title="Error"
+        message={errorMessage}
+      />
       <Footer />
     </div>
   );

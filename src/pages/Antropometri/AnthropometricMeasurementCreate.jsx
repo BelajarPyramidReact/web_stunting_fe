@@ -186,15 +186,13 @@ const AnthropometricMeasurementCreate = () => {
             </span>
           </div>
         )}
-
-        <NotificationModal
+      </main>
+      <NotificationModal
           isOpen={showErrorModal}
           onClose={() => setShowErrorModal(false)}
           title="Error"
           message={errorMessage}
         />
-      </main>
-
       <Footer />
     </div>
   );

@@ -311,15 +311,14 @@ const ChildEdit = () => {
                             Data berhasil disimpan!
                         </p>
                     )}
-                    <NotificationModal
-                        isOpen={showErrorModal}
-                        onClose={() => setShowErrorModal(false)}
-                        title="Error"
-                        message={errorMessage}
-                    />
                 </form>
             </main>
-
+            <NotificationModal
+                isOpen={showErrorModal}
+                onClose={() => setShowErrorModal(false)}
+                title="Error"
+                message={errorMessage}
+            />
             <Footer />
         </div>
     );
