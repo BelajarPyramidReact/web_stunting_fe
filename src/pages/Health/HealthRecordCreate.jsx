@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModernInput from '../../components/ModernInput';
+import NotificationModal from '../../components/NotificationModal';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,6 +16,8 @@ const HealthRecordCreate = () => {
     record_vaccinated_by: '',
   });
   const [errors, setErrors] = useState({});
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -53,7 +56,7 @@ const HealthRecordCreate = () => {
             'Content-Type': 'application/json',
           },
         });
-    
+
         if (response.status === 200) {
           setIsSuccess(true);
           setTimeout(() => {
@@ -62,6 +65,10 @@ const HealthRecordCreate = () => {
         }
       } catch (error) {
         console.error("Error submitting the data:", error);
+        setErrorMessage(
+          error.response?.data?.message ||
+          'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+        );
       }
     }
   };
@@ -135,6 +142,12 @@ const HealthRecordCreate = () => {
             </span>
           </div>
         )}
+        <NotificationModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+          title="Error"
+          message={errorMessage}
+        />
       </main>
 
       <Footer />

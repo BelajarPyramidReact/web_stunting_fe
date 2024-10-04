@@ -4,11 +4,12 @@ import Footer from '../../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModernInput from '../../components/ModernInput';
+import NotificationModal from '../../components/NotificationModal';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const HealthRecordEdit = () => {
-  const { children_id, health_id } = useParams();  
+  const { children_id, health_id } = useParams();
   const [formData, setFormData] = useState({
     record_date: '',
     record_immunization: '',
@@ -16,6 +17,8 @@ const HealthRecordEdit = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -25,7 +28,7 @@ const HealthRecordEdit = () => {
       once: true,
     });
     setIsLoading(true);
-    
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_PUBLIC_URL}/health-records/${health_id}/children/${children_id}`);
@@ -34,6 +37,10 @@ const HealthRecordEdit = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+        setErrorMessage(
+          error.response?.data?.message ||
+          'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+        );
       } finally {
         setIsLoading(false);
       }
@@ -156,6 +163,12 @@ const HealthRecordEdit = () => {
             </span>
           </div>
         )}
+        <NotificationModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+          title="Error"
+          message={errorMessage}
+        />
       </main>
 
       <Footer />

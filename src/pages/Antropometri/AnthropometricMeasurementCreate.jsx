@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModernInput from '../../components/ModernInput';
+import NotificationModal from '../../components/NotificationModal';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,6 +22,8 @@ const AnthropometricMeasurementCreate = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     AOS.init({
@@ -57,7 +60,6 @@ const AnthropometricMeasurementCreate = () => {
             'Content-Type': 'application/json',
           },
         });
-        console.log(response);
 
         if (response.status === 200) {
           setIsSuccess(true);
@@ -67,6 +69,11 @@ const AnthropometricMeasurementCreate = () => {
         }
       } catch (error) {
         console.error("Error submitting the data:", error);
+        setErrorMessage(
+          error.response?.data?.message ||
+          'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+        );
+        setShowErrorModal(true);
       }
     }
   };
@@ -179,6 +186,13 @@ const AnthropometricMeasurementCreate = () => {
             </span>
           </div>
         )}
+
+        <NotificationModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+          title="Error"
+          message={errorMessage}
+        />
       </main>
 
       <Footer />

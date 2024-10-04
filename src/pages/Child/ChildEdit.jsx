@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModernInput from '../../components/ModernInput';
+import NotificationModal from '../../components/NotificationModal';
 import axios from 'axios';
 
 const ChildEdit = () => {
@@ -22,6 +23,8 @@ const ChildEdit = () => {
     });
     const [errors, setErrors] = useState({});
     const [isSuccess, setIsSuccess] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -51,20 +54,20 @@ const ChildEdit = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log('Field changed:', name, value); 
+        console.log('Field changed:', name, value);
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
-    
+
     const validate = (stepData) => {
         let tempErrors = {};
         Object.keys(stepData).forEach((key) => {
             if (!stepData[key] && key !== 'children_allergy') {
                 tempErrors[key] = `${key.replace('children_', '').replace('_', ' ')} harus diisi`;
             }
-    
+
             if (key === 'children_blood_type' && stepData[key] === '') {
                 tempErrors[key] = 'Golongan Darah harus dipilih';
             }
@@ -72,7 +75,7 @@ const ChildEdit = () => {
         setErrors(tempErrors);
         return Object.keys(tempErrors).length === 0;
     };
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate(formData)) {
@@ -92,6 +95,10 @@ const ChildEdit = () => {
                 }
             } catch (error) {
                 console.error('Error during submission:', error);
+                setErrorMessage(
+                    error.response?.data?.message ||
+                    'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+                );
             }
         }
     };
@@ -210,7 +217,7 @@ const ChildEdit = () => {
                             icon="Heartbeat"
                             iconSet="fa"
                             options={[
-                                { label: 'Pilih Golongan Darah', value: '' }, 
+                                { label: 'Pilih Golongan Darah', value: '' },
                                 { label: 'A', value: 'A' },
                                 { label: 'B', value: 'B' },
                                 { label: 'AB', value: 'AB' },
@@ -303,6 +310,12 @@ const ChildEdit = () => {
                             Data berhasil disimpan!
                         </p>
                     )}
+                    <NotificationModal
+                        isOpen={showErrorModal}
+                        onClose={() => setShowErrorModal(false)}
+                        title="Error"
+                        message={errorMessage}
+                    />
                 </form>
             </main>
 

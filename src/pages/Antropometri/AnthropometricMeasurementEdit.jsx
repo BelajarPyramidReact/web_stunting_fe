@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModernInput from '../../components/ModernInput';
+import NotificationModal from '../../components/NotificationModal';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,6 +22,8 @@ const AnthropometricMeasurementEdit = () => {
   const [errors, setErrors] = useState({});
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   useEffect(() => {
     const fetchMeasurementData = async () => {
@@ -70,7 +73,7 @@ const AnthropometricMeasurementEdit = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_PUBLIC_URL}/${measurement_id}/children/${children_id}`, formData, {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_PUBLIC_URL}/measurements/${measurement_id}/children/${children_id}`, formData, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -83,6 +86,10 @@ const AnthropometricMeasurementEdit = () => {
         }
       } catch (error) {
         console.error("Error submitting the data:", error);
+        setErrorMessage(
+          error.response?.data?.message ||
+          'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+        );
       }
     }
   };
@@ -199,6 +206,12 @@ const AnthropometricMeasurementEdit = () => {
             </span>
           </div>
         )}
+        <NotificationModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+          title="Error"
+          message={errorMessage}
+        />
       </main>
 
       <Footer />

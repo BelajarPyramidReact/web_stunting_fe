@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModernInput from '../../components/ModernInput';
+import NotificationModal from '../../components/NotificationModal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +22,8 @@ const ChildCreate = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
@@ -79,6 +82,10 @@ const ChildCreate = () => {
         }
       } catch (error) {
         console.error("Error during submission:", error);
+        setErrorMessage(
+          error.response?.data?.message ||
+          'Terjadi kesalahan saat mengedit data. Silakan coba lagi.'
+        );
       }
     }
   };
@@ -302,6 +309,12 @@ const ChildCreate = () => {
             Data anak berhasil disimpan!
           </div>
         )}
+        <NotificationModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+          title="Error"
+          message={errorMessage}
+        />
       </main>
 
       <Footer />
