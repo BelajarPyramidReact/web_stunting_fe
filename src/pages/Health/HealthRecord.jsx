@@ -156,16 +156,28 @@ export default function HealthRecords() {
                 month: 'long',
                 day: 'numeric',
             });
-            const pdfColumns = columns.map(col => ({ header: col.header, key: col.key })).filter(col => col.key !== 'actions');
-            const pdfData = childData.records;
+    
+            // Define PDF columns - exclude actions and add numbering
+            const pdfColumns = [
+                { header: 'No.', key: 'number' },
+                { header: 'Tanggal', key: 'record_date' },
+                { header: 'Imunisasi', key: 'record_immunization' },
+                { header: 'Pemberi Vaksin', key: 'record_vaccinated_by' }
+            ];
+    
+            const pdfData = childData.records.map((record, index) => ({
+                ...record,
+                number: index + 1
+            }));
+    
             const body = `
                 Nama Anak: ${childData.name}
                 Tanggal Lahir: ${childData.birthDate}
                 Jumlah Rekam Kesehatan: ${childData.records.length}
-
+    
                 Berikut adalah data rekam kesehatan untuk ${childData.name}:
             `;
-
+    
             generateReportPDF(title, date, pdfColumns, pdfData, body);
         }
     };

@@ -183,13 +183,29 @@ export default function AnthropometryMeasurementsRecord() {
                 month: 'long',
                 day: 'numeric'
             });
-            const pdfColumns = columns.map(col => ({ header: col.header, key: col.key }));
-            const pdfData = childData.measurements;
+
+            // Updated columns for PDF - excluding actions column and adding number column
+            const pdfColumns = [
+                { header: 'No.', key: 'number' },
+                { header: 'Tanggal Pengukuran', key: 'measurement_date' },
+                { header: 'Berat (kg)', key: 'measurement_weight' },
+                { header: 'Tinggi (cm)', key: 'measurement_height' },
+                { header: 'Lingkar Kepala (cm)', key: 'measurement_head_circumference' },
+                { header: 'Lingkar Lengan (cm)', key: 'measurement_arm_circumference' },
+                { header: 'Lingkar Perut (cm)', key: 'measurement_abdominal_circumference' },
+                { header: 'Lingkar Kaki (cm)', key: 'measurement_leg_circumference' }
+            ];
+
+            const pdfData = childData.measurements.map((measurement, index) => ({
+                ...measurement,
+                number: index + 1
+            }));
+
             const body = `
                 Nama Anak: ${childData.name}
                 Tanggal Lahir: ${childData.birthDate}
                 Jumlah Pengukuran: ${childData.measurements.length}
-
+    
                 Berikut adalah data pengukuran antropometri untuk ${childData.name}:
             `;
 

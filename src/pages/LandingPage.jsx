@@ -38,7 +38,7 @@ const LandingPage = () => {
 
             <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                 {/* Section: Introduction */}
-                <div className="flex flex-wrap items-center min-h-[70vh]" data-aos="fade-right">
+                <div className="flex flex-wrap items-center min-h-[30vh]" data-aos="fade-right">
                     <div className="w-full xl:w-1/2 order-2 md:order-1">
                         <div className="py-17.5 px-26 text-center flex flex-col">
                             <span className="md:mt-15 mx-auto">
