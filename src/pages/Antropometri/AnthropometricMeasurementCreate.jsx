@@ -63,9 +63,7 @@ const AnthropometricMeasurementCreate = () => {
 
         if (response.status === 200) {
           setIsSuccess(true);
-          setTimeout(() => {
-            navigate('/pendataan-antropometri')
-          }, 3000);
+          navigate('/pendataan-antropometri')
         }
       } catch (error) {
         console.error("Error submitting the data:", error);

@@ -81,9 +81,7 @@ const HealthRecordEdit = () => {
 
         if (response.status === 200) {
           setIsSuccess(true);
-          setTimeout(() => {
-            navigate('/pendataan-riwayat-kesehatan');
-          }, 3000);
+          navigate('/pendataan-riwayat-kesehatan');
         }
       } catch (error) {
         console.error("Error submitting the data:", error);

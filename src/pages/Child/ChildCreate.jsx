@@ -74,9 +74,7 @@ const ChildCreate = () => {
         if (response.status === 200) {
           console.log("Data successfully submitted:", formData);
           setIsSuccess(true);
-          setTimeout(() => {
-            navigate('/pendataan-anak')
-          }, 3000);
+          navigate('/pendataan-anak');
         } else {
           console.error("Failed to submit data:", response.statusText);
         }
@@ -206,11 +204,15 @@ const ChildCreate = () => {
               iconSet="fa"
               options={[
                 { label: 'Pilih Golongan Darah', value: '' },
-                { label: 'A', value: 'A' },
-                { label: 'B', value: 'B' },
-                { label: 'AB', value: 'AB' },
-                { label: 'O', value: 'O' },
-              ]}
+                { label: 'A+', value: 'A+' },
+                { label: 'A-', value: 'A-' },
+                { label: 'B+', value: 'B+' },
+                { label: 'B-', value: 'B-' },
+                { label: 'AB+', value: 'AB+' },
+                { label: 'AB-', value: 'AB-' },
+                { label: 'O+', value: 'O+' },
+                { label: 'O-', value: 'O-' },
+            ]}
               error={errors.children_blood_type}
             />
             <ModernInput

@@ -79,8 +79,20 @@ const ChildEdit = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate(formData)) {
+            console.log(formData);
+            const apiData = {
+                children_name: formData.name,
+                children_birth_date: formData.birth_date,
+                children_address: formData.address,
+                children_parent: formData.parent,
+                children_parent_phone: formData.parent_phone,
+                children_allergy: formData.allergy,
+                children_blood_type: formData.blood_type,
+                children_weight: formData.weight,
+                children_height: formData.height,
+            };
             try {
-                const response = await axios.put(`${process.env.REACT_APP_BACKEND_PUBLIC_URL}/children/${child_id}`, formData, {
+                const response = await axios.put(`${process.env.REACT_APP_BACKEND_PUBLIC_URL}/children/${child_id}`, apiData, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -219,10 +231,14 @@ const ChildEdit = () => {
                             iconSet="fa"
                             options={[
                                 { label: 'Pilih Golongan Darah', value: '' },
-                                { label: 'A', value: 'A' },
-                                { label: 'B', value: 'B' },
-                                { label: 'AB', value: 'AB' },
-                                { label: 'O', value: 'O' },
+                                { label: 'A+', value: 'A+' },
+                                { label: 'A-', value: 'A-' },
+                                { label: 'B+', value: 'B+' },
+                                { label: 'B-', value: 'B-' },
+                                { label: 'AB+', value: 'AB+' },
+                                { label: 'AB-', value: 'AB-' },
+                                { label: 'O+', value: 'O+' },
+                                { label: 'O-', value: 'O-' },
                             ]}
                             error={errors.children_blood_type}
                         />
